@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import { addWebhookLog } from "@/lib/webhookLogs";
 
 export async function POST(req: Request) {
   try {
@@ -38,6 +39,12 @@ export async function POST(req: Request) {
       amount,
       message,
       mediaShareUrl
+    });
+
+    addWebhookLog({
+      provider: "bagibagi",
+      payload,
+      streamKey
     });
 
     // Valid signature! Normally we would save to the database here.

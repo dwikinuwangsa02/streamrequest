@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import { addWebhookLog } from "@/lib/webhookLogs";
 
 export async function POST(req: Request) {
   try {
@@ -40,8 +41,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
     }
 
-    // Valid signature! Here we would normally save the transaction to the database
-    // and push an event to the client (via Pusher/Socket.io/SSE) to update the queue.
+    addWebhookLog({
+      provider: "saweria",
+      payload,
+      streamKey
+    });
+
     console.log("Saweria Webhook Validated:", payload);
     
     // For now, since we are using dummy data, we just acknowledge receipt
