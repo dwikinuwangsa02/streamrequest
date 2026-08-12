@@ -11,10 +11,11 @@ export async function POST(req: Request) {
     const bodyText = await req.text();
     const payload = JSON.parse(bodyText);
 
-    const streamKey = process.env.STREAM_KEY;
+    const { searchParams } = new URL(req.url);
+    const streamKey = searchParams.get("key");
+
     if (!streamKey) {
-      console.warn("STREAM_KEY not configured in environment variables.");
-      return NextResponse.json({ error: "Server misconfiguration" }, { status: 500 });
+      return NextResponse.json({ error: "Missing key in URL" }, { status: 400 });
     }
 
     // Bagibagi uses HMAC-SHA256 of the raw body payload

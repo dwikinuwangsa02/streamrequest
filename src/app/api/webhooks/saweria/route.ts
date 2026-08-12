@@ -18,11 +18,16 @@ export async function POST(req: Request) {
     // Convert undefined/null to empty string just in case, though they should be present
     const message = `${version || ''}${id || ''}${amount_raw || ''}${donator_name || ''}${donator_email || ''}`;
 
-    const streamKey = process.env.STREAM_KEY;
+    const { searchParams } = new URL(req.url);
+    const streamKey = searchParams.get("key");
+
     if (!streamKey) {
-      console.warn("STREAM_KEY not configured in environment variables.");
-      return NextResponse.json({ error: "Server misconfiguration" }, { status: 500 });
+      return NextResponse.json({ error: "Missing key in URL" }, { status: 400 });
     }
+
+    // Optional: You can check if the streamKey exists in the DB here
+    // const settings = await prisma.settings.findUnique({ where: { streamKey } });
+    // if (!settings) return NextResponse.json({ error: "Invalid key" }, { status: 403 });
 
     // Generate HMAC-SHA256 signature
     const expectedSignature = crypto
