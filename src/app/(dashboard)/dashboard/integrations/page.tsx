@@ -7,7 +7,7 @@ import { clsx } from "clsx";
 export default function IntegrationsPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   
-  const streamKey = process.env.NEXT_PUBLIC_STREAM_KEY || "missing_key";
+  const [streamKey, setStreamKey] = useState("missing_key");
   const saweriaUrl = streamKey !== "missing_key" ? `https://streamrequest.squareone.id/api/webhooks/saweria?key=${streamKey}` : "";
   const bagibagiUrl = streamKey !== "missing_key" ? `https://streamrequest.squareone.id/api/webhooks/bagibagi?key=${streamKey}` : "";
   const [tiktokUsername, setTiktokUsername] = useState("");
@@ -47,6 +47,7 @@ export default function IntegrationsPage() {
       .then(res => res.json())
       .then(data => {
          if (data.chatCommand) setChatCommand(data.chatCommand);
+         if (data.streamKey) setStreamKey(data.streamKey);
       })
       .finally(() => {
          setIsLoaded(true);
