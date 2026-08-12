@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ListMusic, Settings, LayoutTemplate, History, Puzzle, Mic2, User } from "lucide-react";
 import { clsx } from "clsx";
-import { useUser } from "@clerk/nextjs";
+import { useUser, UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 const navItems = [
   { name: "Queue", href: "/dashboard", icon: ListMusic },
@@ -57,12 +58,14 @@ export function Sidebar() {
       <div className="p-4 border-t border-border">
         {user ? (
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-secondary overflow-hidden shrink-0">
-              {avatarUrl ? (
-                <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-              ) : (
-                <User className="w-full h-full p-2 text-muted-foreground" />
-              )}
+            <div className="shrink-0 flex items-center justify-center">
+              <UserButton 
+                appearance={{
+                  // @ts-expect-error
+                  baseTheme: dark,
+                  elements: { avatarBox: "w-10 h-10" }
+                }}
+              />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-foreground truncate">

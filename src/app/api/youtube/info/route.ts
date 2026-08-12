@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import ytSearch from 'yt-search';
+const ytSearch = require('yt-search');
 
 export async function POST(req: Request) {
   try {

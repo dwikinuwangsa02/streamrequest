@@ -12,15 +12,6 @@ export function Topbar() {
         <StatusIndicator icon={MonitorPlay} label="Spotify" connected={true} color="text-green-500" />
         <StatusIndicator icon={Webhook} label="Saweria" connected={true} color="text-purple-500" />
       </div>
-      <div className="flex items-center gap-4">
-        <UserButton 
-          appearance={{
-            // @ts-expect-error
-            baseTheme: dark,
-            variables: { colorPrimary: '#1db954' }
-          }}
-        />
-      </div>
     </header>
   );
 }
