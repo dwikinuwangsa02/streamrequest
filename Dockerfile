@@ -44,6 +44,9 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Force install dependencies that Next.js standalone trace might miss
+RUN npm install cheerio yt-search spotify-url-info
+
 USER nextjs
 
 EXPOSE 3000
