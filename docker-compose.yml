@@ -9,7 +9,7 @@ services:
     container_name: streamrequest
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3001:3000"
     # env_file:
     #   - .env # Use this if you want to pass an .env file
     environment:
