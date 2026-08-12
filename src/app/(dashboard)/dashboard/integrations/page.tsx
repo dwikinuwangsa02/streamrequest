@@ -8,8 +8,8 @@ export default function IntegrationsPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   
   const streamKey = process.env.NEXT_PUBLIC_STREAM_KEY || "missing_key";
-  const saweriaUrl = "http://localhost:3000/api/webhooks/saweria";
-  const bagibagiUrl = "http://localhost:3000/api/webhooks/bagibagi";
+  const saweriaUrl = "https://streamrequest.squareone.id/api/webhooks/saweria";
+  const bagibagiUrl = "https://streamrequest.squareone.id/api/webhooks/bagibagi";
   const [tiktokUsername, setTiktokUsername] = useState("");
   const [isTiktokConnected, setIsTiktokConnected] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);

@@ -39,7 +39,7 @@ export default function WidgetsPage() {
     }
   };
   
-  const widgetUrl = streamKey ? `http://localhost:3000/widget/queue/default?key=${streamKey}` : "";
+  const widgetUrl = streamKey ? `https://streamrequest.squareone.id/widget/queue/default?key=${streamKey}` : "";
 
   const copyToClipboard = async () => {
     try {
