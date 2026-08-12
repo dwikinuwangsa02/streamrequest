@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  streamrequest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: streamrequest:latest
+    container_name: streamrequest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    # env_file:
+    #   - .env # Use this if you want to pass an .env file
+    environment:
+      - NODE_ENV=production
+      # Tambahkan environment variables kamu di sini untuk Portainer
+      # - DATABASE_URL=...
+      # - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
+      # - CLERK_SECRET_KEY=...
+      # - NEXT_PUBLIC_CLERK_SIGN_IN_URL=...
+      # - NEXT_PUBLIC_CLERK_SIGN_UP_URL=...

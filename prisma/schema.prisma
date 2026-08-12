@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String         @id @default(uuid())
+  clerkId       String         @unique
+  username      String?
+  email         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  settings      Settings?
+  songRequests  SongRequest[]
+}
+
+model Settings {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  streamKey       String   @unique
+  minDonationSkip Int      @default(10000)
+  youtubeApiKey   String?
+  spotifyToken    String?
+  spotifyRefresh  String?
+  chatCommand     String   @default("!sr")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model SongRequest {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title         String
+  url           String
+  thumbnail     String?
+  source        String   @default("youtube") // "youtube" | "spotify"
+  requestedBy   String   // Name of the user who requested
+  isPriority    Boolean  @default(false)
+  donationAmount Int?    @default(0)
+  status        String   @default("queued") // "queued" | "playing" | "played"
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
