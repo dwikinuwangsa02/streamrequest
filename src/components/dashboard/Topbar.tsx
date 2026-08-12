@@ -1,6 +1,8 @@
 import { MonitorPlay, Webhook } from "lucide-react";
 import { YoutubeIcon } from "@/components/icons/YoutubeIcon";
 import { clsx } from "clsx";
+import { UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 export function Topbar() {
   return (
@@ -9,6 +11,15 @@ export function Topbar() {
         <StatusIndicator icon={YoutubeIcon} label="YouTube" connected={true} color="text-red-500" />
         <StatusIndicator icon={MonitorPlay} label="Spotify" connected={true} color="text-green-500" />
         <StatusIndicator icon={Webhook} label="Saweria" connected={true} color="text-purple-500" />
+      </div>
+      <div className="flex items-center gap-4">
+        <UserButton 
+          appearance={{
+            // @ts-expect-error
+            baseTheme: dark,
+            variables: { colorPrimary: '#1db954' }
+          }}
+        />
       </div>
     </header>
   );
